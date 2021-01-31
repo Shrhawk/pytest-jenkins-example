@@ -3,10 +3,10 @@ import optparse
 from flask import Flask
 from flask_httpauth import HTTPBasicAuth
 
-app = Flask(__name__)
-app.auth = HTTPBasicAuth()
+flask_app = Flask(__name__)
+flask_app.auth = HTTPBasicAuth()
 
-with app.app_context():
+with flask_app.app_context():
     from apis.routing import setup_api_routing
     setup_api_routing()
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
         default=debug_mode
     )
     options, _ = parser.parse_args()
-    app.run(
+    flask_app.run(
         debug=options.debug,
         host=options.host,
         port=int(options.port)

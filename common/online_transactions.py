@@ -1,4 +1,7 @@
-from common.constants import DEFAULT_RESPONSE, STATUS_FORCE_LIST, UNAVAILABLE_MESSAGE, UNAVAILABLE_STATUS_CODE
+from common.constants import (
+    DEFAULT_RESPONSE, STATUS_FORCE_LIST, UNAVAILABLE_MESSAGE, UNAVAILABLE_STATUS_CODE, UNPROCESSABLE_ENTITY_CODE,
+    UNPROCESSABLE_ENTITY_MESSAGE
+)
 from common.requests_helper import make_request
 
 
@@ -9,7 +12,6 @@ class OnlineTransaction(object):
     security_code = None
     amount = None
     transaction_class = None
-    status_code = 200
     request_data = {}
     response = {}
     is_expensive_gate_away = False
@@ -36,15 +38,18 @@ class OnlineTransaction(object):
         """
         if transaction_class:
             self.transaction_class = transaction_class
-        elif self.amount < 20:
+        elif 0 < self.amount < 20:
             self.transaction_class = CheapPaymentGateway()
         elif 20 < self.amount < 501:
             self.transaction_class = ExpensivePaymentGateway()
             self.is_expensive_gate_away = True
-        else:
+        elif self.amount > 500:
             self.transaction_class = PremiumPaymentGateway()
+        else:
+            self.response = {'status_code': UNPROCESSABLE_ENTITY_CODE, 'data': UNPROCESSABLE_ENTITY_MESSAGE}
+            return self.response
 
-        if self.transaction_class.check_availability():
+        if self.transaction_class and self.transaction_class.check_availability():
             self.response = self.transaction_class.make_transaction(data=self.request_data)
             # if the ExpensivePaymentGateway is busy or something went wrong try with
             # CheapPaymentGateway
@@ -57,8 +62,7 @@ class OnlineTransaction(object):
                 self.is_expensive_gate_away = False
                 return self.make_transaction(transaction_class=CheapPaymentGateway())
             else:
-                self.response['status_code'] = UNAVAILABLE_STATUS_CODE
-                self.response['data'] = UNAVAILABLE_MESSAGE
+                self.response = {'status_code': UNAVAILABLE_STATUS_CODE, 'data': UNAVAILABLE_MESSAGE}
         return self.response
 
 

@@ -11,5 +11,5 @@ def setup_v1_routes():
     """
     api_v1_blue_print = Blueprint('api_v1', __name__)
     api = Api(api_v1_blue_print)
-    api.add_resource(ProcessPaymentApi, '/process-payment')
+    api.add_resource(ProcessPaymentApi, '/process-payment', endpoint='process-payment-v1')
     current_app.register_blueprint(api_v1_blue_print, url_prefix='/api/v1')

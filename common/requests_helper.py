@@ -57,7 +57,7 @@ def make_request(method='get', api_url='', api_key='', data={}, retries=0):
         total=retries,
         backoff_factor=1,
         status_forcelist=STATUS_FORCE_LIST,
-        method_whitelist=frozenset(['GET', 'POST'])
+        allowed_methods=frozenset(['GET', 'POST'])
     )
     retry_adapter = HTTPAdapter(max_retries=retry_strategy)
     session = requests.Session()

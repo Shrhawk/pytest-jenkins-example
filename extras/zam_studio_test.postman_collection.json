@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "6245ee07-b385-4ceb-8bbe-20f9998c66de",
+		"name": "zam_studio_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://0.0.0.0:5051/api/v1/process-payment/",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "CreditCardNumber",
+							"value": "5555555555554444",
+							"type": "text"
+						},
+						{
+							"key": "CardHolder",
+							"value": "syed hassan raza",
+							"type": "text"
+						},
+						{
+							"key": "ExpirationDate",
+							"value": "2021-12-12",
+							"type": "text"
+						},
+						{
+							"key": "Amount",
+							"value": "-320",
+							"type": "text"
+						},
+						{
+							"key": "SecurityCode",
+							"value": "321",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5051/api/v1/process-payment/",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5051",
+					"path": [
+						"api",
+						"v1",
+						"process-payment",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
