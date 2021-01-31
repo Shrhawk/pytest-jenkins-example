@@ -13,8 +13,9 @@ $ source envname/bin/activate
 3. Install requisite packages:
 ```shell
 $ sh scripts/install_requirements.sh
-4. Run flask API:
 ```
+4. Run flask API:
+```shell
 $ python app.py
 ```
 5. Url:
@@ -25,3 +26,4 @@ http://0.0.0.0:5051/api/v1/process-payment/ (post)
 ```
 $ python -m pytest -vv
 ```
+7. Post-man collection under extras folder
