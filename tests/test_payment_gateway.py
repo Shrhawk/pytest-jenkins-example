@@ -5,6 +5,9 @@ from common.online_transactions import OnlineTransaction
 
 
 class TestPaymentGateWay(object):
+    """
+    Tests for Payment-GateWays
+    """
 
     def test_cheap_payment_gateway(self, app_):
         """
