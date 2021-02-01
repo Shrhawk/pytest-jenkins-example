@@ -128,7 +128,9 @@ class TestPaymentGateWay(object):
     @patch('common.online_transactions.make_request', side_effect=[
         {'data': 'ok', 'status_code': 500}, {'data': 'ok', 'status_code': 200}, {'data': 'ok', 'status_code': 200}
     ])
-    @patch('common.online_transactions.CheapPaymentGateway.make_transaction')
+    @patch('common.online_transactions.CheapPaymentGateway.make_transaction', side_effect=[
+        {'data': 'ok', 'status_code': 200}
+    ])
     def test_expensive_payment_failure(self, make_transaction, app_):
         """
         Test expensive payment gateway failure with cheap payment gateway
@@ -142,5 +144,7 @@ class TestPaymentGateWay(object):
                 450,  # expensive amount
                 security_code=321
             )
-            transaction_flow.make_transaction()
+            result = transaction_flow.make_transaction()
             make_transaction.assert_called_once()
+            assert result['status_code'] == 200
+            assert result['data'] == 'ok'
