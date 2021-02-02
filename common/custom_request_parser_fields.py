@@ -16,11 +16,16 @@ def validate_card_number(value):
 
 
 def validate_security_code(value):
+    """
+    Validate security code must be digit and length must be 3
+    :param value:
+    :return:
+    """
     if not str(value).isdigit():
         raise ValueError('Invalid security code must be digits')
-    if len(value) == 3:
-        return value
-    raise ValueError('Invalid security code length must be equal to 3')
+    if len(value) != 3:
+        raise ValueError('Invalid security code length must be equal to 3')
+    return value
 
 
 def validate_date(value):
