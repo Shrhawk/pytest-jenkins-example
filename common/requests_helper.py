@@ -14,7 +14,7 @@ MOCK_URLS = {
     'https://cheap-payment-gateway/api/v1/availability/': {'data': 'ok', 'status_code': 200},
     'https://cheap-payment-gateway/api/v1/transaction/': {'data': 'ok', 'status_code': 200},
     'https://expensive-payment-gateway/api/v1/availability/': {'data': 'ok', 'status_code': 200},
-    'https://expensive-payment-gateway/api/v1/transaction/': {'data': 'ok', 'status_code': 500},
+    'https://expensive-payment-gateway/api/v1/transaction/': {'data': 'ok', 'status_code': 200},
     'https://premium-payment-gateway/api/v1/availability/': {'data': 'ok', 'status_code': 200},
     'https://premium-payment-gateway/api/v1/transaction/': {'data': 'ok', 'status_code': 200},
 }
