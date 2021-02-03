@@ -131,7 +131,7 @@ class TestPaymentGateWay(object):
     @patch('common.online_transactions.CheapPaymentGateway.make_transaction', side_effect=[
         {'data': 'ok', 'status_code': 200}
     ])
-    def test_expensive_payment_failure(self, make_transaction, app_):
+    def test_expensive_payment_failure(self, make_transaction, make_request, app_):
         """
         Test expensive payment gateway failure with cheap payment gateway
         first side effect will throw failure that expensive_payment is unavailable and move to cheap payment gateway
