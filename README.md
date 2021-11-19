@@ -27,4 +27,4 @@ http://0.0.0.0:5051/api/v1/process-payment/ (post)
 $ python -m pytest -vv
 ```
 7. Post-man collection under extras folder
-test-pr-1a
+test-pr-1ab
