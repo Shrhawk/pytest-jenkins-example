@@ -20,7 +20,7 @@ jobs:
         run: |
           chmod +x ./scripts/install_requirements.sh
           ./scripts/install_requirements.sh
-          shell: bash
+        shell: bash
       - name: Directory creation for pytest results
         run: mkdir -p test_results
       - name: Run tests with pytest
