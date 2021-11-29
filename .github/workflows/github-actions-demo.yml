@@ -1,0 +1,32 @@
+name: Run Python Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Python 3.7.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7.9
+      - name: Install dependencies
+        run: |
+          chmod +x ./scripts/install_requirements.sh
+          ./scripts/install_requirements.sh
+          shell: bash
+      - name: Directory creation for pytest results
+        run: mkdir -p test_results
+      - name: Run tests with pytest
+        run: pytest -vv --junitxml="test_results/result.xml"
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+          with:
+            files: test_results/*.xml
