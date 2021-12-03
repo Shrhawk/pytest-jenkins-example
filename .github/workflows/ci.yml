@@ -15,7 +15,7 @@ jobs:
       - name: Install Python 3.7.9
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7.9
+          python-version: 3.7.965767676
       - name: Install dependencies
         run: |
           chmod +x ./scripts/install_requirements.sh
@@ -33,7 +33,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         with:
           name: Junit Tests Results         # Name of the check run which will be created
-          path: 'test_results/result.xml'  # Path to test results (inside artifact .zip)
+          path: 'test_results/result.xml'   # Path to test results (inside artifact .zip)
           reporter: java-junit              # Format of test results
 #      - name: Publish Unit Test Results
 #        uses: mikepenz/action-junit-report@v2
