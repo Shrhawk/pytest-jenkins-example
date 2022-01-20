@@ -23,6 +23,7 @@ jobs:
           pip install -e 'git+https://${{secrets.GIT_TOKEN}}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot'
           export FLAKY_BOT_API_URL=${{secrets.FLAKY_BOT_API_URL}}
           export FLAKY_BOT_API_TOKEN=${{secrets.FLAKY_BOT_API_TOKEN}}
+          echo $FLAKY_BOT_API_URL
         shell: bash
       - name: Directory creation for pytest results
         run: mkdir -p test_results
