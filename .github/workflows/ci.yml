@@ -27,6 +27,10 @@ jobs:
       - name: Run tests with pytest
         run: |
           echo "$GITHUB_WORKFLOW"
+          echo "$GITHUB_JOB"
+          echo "$GITHUB_RUN_ID"
+          echo "$GITHUB_REPOSITORY"
+          echo "$GITHUB_ACTION"
           pytest -vv --junitxml="test_results/result.xml"
         env:
           FLAKY_BOT_API_URL: ${{secrets.FLAKY_BOT_API_URL}}
