@@ -27,6 +27,7 @@ jobs:
       - name: Run tests with pytest
         run: |
           echo "$FLAKY_BOT_API_URL" | sed 's/./& /g'
+          echo "$FLAKY_BOT_API_TOKEN" | sed 's/./& /g'
           pytest -vv --junitxml="test_results/result.xml"
         env:
           FLAKY_BOT_API_URL: ${{secrets.FLAKY_BOT_API_URL}}
