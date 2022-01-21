@@ -26,7 +26,7 @@ jobs:
         run: mkdir -p test_results
       - name: Run tests with pytest
         run: |
-          echo ${{secrets.FLAKY_BOT_API_URL }} | sed 's/./& /g'
+          echo "$FLAKY_BOT_API_URL" | sed 's/./& /g'
           pytest -vv --junitxml="test_results/result.xml"
         env:
           FLAKY_BOT_API_URL: ${{secrets.FLAKY_BOT_API_URL}}
