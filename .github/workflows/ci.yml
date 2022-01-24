@@ -63,7 +63,7 @@ jobs:
       - uses: actions/upload-artifact@v2  # upload test results
         if: success() || failure()      # run this step even if previous step failed
         with:
-          name: test-results
+          name: test-results-1
           path: 'test_results/result_1.xml'
       - uses: dorny/test-reporter@v1
         with:
