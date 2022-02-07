@@ -37,6 +37,9 @@ jobs:
               mkdir -p test_results
               ls -lah
               pytest -vv --junitxml="test_results/result.xml"
+      - store_artifacts:
+          path: "test_results/result.xml"
+          destination: result.xml
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
