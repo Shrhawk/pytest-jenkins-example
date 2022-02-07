@@ -29,10 +29,11 @@ jobs:
     # CircleCI will report the results back to your VCS provider.
     steps:
       - checkout
-      - name: Install dependencies
-        run: |
-          chmod +x ./scripts/install_requirements.sh
-          ./scripts/install_requirements.sh
+      - run:
+            name: "Install dependencies"
+            command: |
+              chmod +x ./scripts/install_requirements.sh
+              ./scripts/install_requirements.sh
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
