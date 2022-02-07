@@ -35,6 +35,7 @@ jobs:
               chmod +x ./scripts/install_requirements.sh
               ./scripts/install_requirements.sh
               mkdir -p test_results
+              ls -lah
               pytest -vv --junitxml="test_results/result.xml"
 
 # Invoke jobs via workflows
