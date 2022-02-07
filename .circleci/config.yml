@@ -32,11 +32,15 @@ jobs:
       - run:
             name: "Install dependencies"
             command: |
+              python -m venv envname
+              source envname/bin/activate
               chmod +x ./scripts/install_requirements.sh
               ./scripts/install_requirements.sh
               mkdir -p test_results
               ls -lah
               pytest -vv --junitxml="test_results/result.xml"
+      - store_test_results:
+          path: "test_results/result.xml"
       - store_artifacts:
           path: "test_results/result.xml"
           destination: result.xml
