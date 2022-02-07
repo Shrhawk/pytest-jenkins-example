@@ -38,7 +38,6 @@ jobs:
               ./scripts/install_requirements.sh
               mkdir -p test_results
               echo $FLAKY_BOT_API_URL
-#              pip install -e 'git+https://$GIT_TOKEN@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot'
               python -m pytest -vv --junitxml="test_results/result.xml"
       - store_test_results:
           path: "test_results/result.xml"
