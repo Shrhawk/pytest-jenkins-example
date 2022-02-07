@@ -29,19 +29,10 @@ jobs:
     # CircleCI will report the results back to your VCS provider.
     steps:
       - checkout
-      - run:
-          - name: Install dependencies
-            run: |
-              chmod +x ./scripts/install_requirements.sh
-              ./scripts/install_requirements.sh
-              pip install -e 'git+https://${{secrets.GIT_TOKEN}}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot'
-          - name: Directory creation for pytest results
-            run: mkdir -p test_results
-          - name: Run tests with pytest
-            run: pytest -vv --junitxml="test_results/result.xml"
-            env:
-              FLAKY_BOT_API_URL: ${{secrets.FLAKY_BOT_API_URL}}
-              FLAKY_BOT_API_TOKEN: ${{secrets.FLAKY_BOT_API_TOKEN}}
+      - name: Install dependencies
+        run: |
+          chmod +x ./scripts/install_requirements.sh
+          ./scripts/install_requirements.sh
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
