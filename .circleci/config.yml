@@ -34,6 +34,12 @@ jobs:
             command: |
               chmod +x ./scripts/install_requirements.sh
               ./scripts/install_requirements.sh
+      - run:
+            name: "Directory creation for pytest results"
+            command: mkdir -p test_results
+      - run:
+          name: "Run tests with pytest"
+          command: pytest -vv --junitxml="test_results/result.xml"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
