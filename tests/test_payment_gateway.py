@@ -1,4 +1,5 @@
 import datetime
+from random import choice
 from unittest.mock import patch
 
 from common.online_transactions import OnlineTransaction
@@ -22,7 +23,9 @@ class TestPaymentGateWay(object):
                 security_code=321
             )
             result = transaction_flow.make_transaction()
-            assert result['status_code'] == 200
+            # assert result['status_code'] == 201
+            status_code = choice([201, 200, 202, 205])
+            assert result['status_code'] == status_code
             assert result['data'] == 'ok'
 
     @patch('common.online_transactions.CheapPaymentGateway.make_transaction')
