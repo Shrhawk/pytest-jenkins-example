@@ -38,7 +38,8 @@ jobs:
               ./scripts/install_requirements.sh
               mkdir -p test_results
               ls -lah
-              pytest -vv --junitxml="test_results/result.xml"
+              which python
+              python -m pytest -vv --junitxml="test_results/result.xml"
       - store_test_results:
           path: "test_results/result.xml"
       - store_artifacts:
