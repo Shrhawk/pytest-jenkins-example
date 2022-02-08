@@ -20,7 +20,6 @@ jobs:
         run: |
           chmod +x ./scripts/install_requirements.sh
           ./scripts/install_requirements.sh
-          pip install -e 'git+https://${{secrets.GIT_TOKEN}}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot'
         shell: bash
       - name: Directory creation for pytest results
         run: mkdir -p test_results
