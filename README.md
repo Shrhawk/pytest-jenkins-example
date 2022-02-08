@@ -2,11 +2,11 @@
 
 Before running the app assuming that **python 3.7.xx** is installed on development machine
 
-1. Create virtual enviroment with python3.7.xx
+1. Create virtual environment with python3.7.xx
 ```shell
 $ python3.7 -m venv envname
 ```
-2. Activate the virtual enviroment
+2. Activate the virtual environment
 ```shell
 $ source envname/bin/activate
 ```

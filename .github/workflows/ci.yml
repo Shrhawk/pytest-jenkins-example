@@ -1,0 +1,82 @@
+name: 'Run Python Tests'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Python 3.7.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7.9
+      - name: Install dependencies
+        run: |
+          chmod +x ./scripts/install_requirements.sh
+          ./scripts/install_requirements.sh
+          pip install -e git+https://${{secrets.GIT_TOKEN}}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot
+        shell: bash
+      - name: Directory creation for pytest results
+        run: mkdir -p test_results
+      - name: Run tests with pytest
+        run: pytest -vv --junitxml="test_results/result.xml"
+        env:
+          FLAKY_BOT_API_URL: ${{secrets.FLAKY_BOT_API_URL}}
+          FLAKY_BOT_API_TOKEN: ${{secrets.FLAKY_BOT_API_TOKEN}}
+      - uses: actions/upload-artifact@v2  # upload test results
+        if: success() || failure()      # run this step even if previous step failed
+        with:
+          name: test-results
+          path: 'test_results/result.xml'
+      - uses: dorny/test-reporter@v1
+        with:
+          name: Junit Tests Results         # Name of the check run which will be created
+          path: 'test_results/result.xml'   # Path to test results (inside artifact .zip)
+          reporter: java-junit              # Format of test results
+  build-2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Python 3.7.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7.9
+      - name: Install dependencies
+        run: |
+          chmod +x ./scripts/install_requirements.sh
+          ./scripts/install_requirements.sh
+          pip install -e 'git+https://${{secrets.GIT_TOKEN}}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot'
+        shell: bash
+      - name: Directory creation for pytest results
+        run: mkdir -p test_results
+      - name: Run tests with pytest
+        run: pytest -vv --junitxml="test_results/result_1.xml"
+        env:
+          FLAKY_BOT_API_URL: ${{secrets.FLAKY_BOT_API_URL}}
+          FLAKY_BOT_API_TOKEN: ${{secrets.FLAKY_BOT_API_TOKEN}}
+      - uses: actions/upload-artifact@v2  # upload test results
+        if: success() || failure()      # run this step even if previous step failed
+        with:
+          name: test-results-1
+          path: 'test_results/result_1.xml'
+      - uses: dorny/test-reporter@v1
+        with:
+          name: Junit Tests Results         # Name of the check run which will be created
+          path: 'test_results/result_1.xml'   # Path to test results (inside artifact .zip)
+          reporter: java-junit              # Format of test results
+#      - name: Publish Unit Test Results
+#        uses: mikepenz/action-junit-report@v2
+#        if: always()
+#        with:
+#          report_paths: 'test_results/*.xml'
+#      - name: Publish Unit Test Results
+#        uses: EnricoMi/publish-unit-test-result-action@v1
+#        if: always()
+#        with:
+#          files: test_results/*.xml
