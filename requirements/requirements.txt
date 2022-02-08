@@ -43,4 +43,3 @@ urllib3==1.26.3
 virtualenv==20.4.1
 Werkzeug==1.0.1
 zipp==3.4.0
--e git+https://${GIT_TOKEN}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot
