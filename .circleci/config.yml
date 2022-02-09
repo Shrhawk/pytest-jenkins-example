@@ -37,8 +37,6 @@ jobs:
               chmod +x ./scripts/install_requirements.sh
               ./scripts/install_requirements.sh
               mkdir -p test_results
-              echo $CIRCLE_JOB
-              echo $CIRCLE_PROJECT_REPONAME
               pip install -e git+https://${GIT_TOKEN}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot
               python -m pytest -vv -s --junitxml="test_results/result.xml"
       - store_test_results:
