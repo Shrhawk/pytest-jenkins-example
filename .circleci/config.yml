@@ -30,10 +30,8 @@ jobs:
     steps:
       - checkout
       - run:
-            name: "Install dependencies"
+            name: "Install dependencies and run tests"
             command: |
-              python -m venv envname
-              source envname/bin/activate
               chmod +x ./scripts/install_requirements.sh
               ./scripts/install_requirements.sh
               mkdir -p test_results
