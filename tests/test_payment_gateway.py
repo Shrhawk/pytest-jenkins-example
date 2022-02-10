@@ -2,8 +2,6 @@ import datetime
 from random import choice
 from unittest.mock import patch
 
-from flaky import flaky
-
 from common.online_transactions import OnlineTransaction
 
 
@@ -12,7 +10,6 @@ class TestPaymentGateWay(object):
     Tests for Payment-GateWays
     """
 
-    @flaky(max_runs=5, min_passes=1)
     def test_cheap_payment_gateway(self, app_):
         """
         Test cheap payment gateway response.
