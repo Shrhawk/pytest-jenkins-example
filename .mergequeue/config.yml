@@ -1,0 +1,43 @@
+version: 1.0
+merge_rules:
+  labels:
+    trigger: "label_name"
+    skip_line: "skip_line"
+    merge_failed: "blocked"
+    skip_delete_branch: "do-not-delete"
+  update_latest: true
+  delete_branch: false
+  use_rebase: false
+  enable_comments: true
+  ci_timeout_mins: 60
+  preconditions:
+    number_of_approvals: 1
+    required_checks:
+      - check_1
+      - "check 2"
+    use_github_mergeability: true
+    conversation_resolution_required: false
+  merge_mode:
+    type: "parallel"
+    parallel_mode:
+      use_affected_targets: false
+      max_parallel_builds: 10
+      max_requeue_attempts: 3
+      stuck_pr_label: "label"
+      stuck_pr_timeout_mins: 90
+      block_parallel_builds_label: "block_batch"
+      check_mergeability_to_queue: false
+  auto_update:
+    enabled: false
+    label: "auto_update"
+    max_runs_for_update: 10
+  merge_commit:
+    use_title_and_body: true
+    cut_body_before: "----"
+    cut_body_after: "+++"
+  merge_strategy:
+    name: "squash"
+    override_labels:
+      squash: "mq-squash"
+      commit: "mq-merge-commit"
+      rebase: "mq-rebase"
