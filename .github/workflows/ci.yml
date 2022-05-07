@@ -17,13 +17,8 @@ jobs:
         with:
           python-version: 3.7.9
       - name: Install dependencies
-        run: |
-          chmod +x ./scripts/install_requirements.sh
-          ./scripts/install_requirements.sh
-          pip install -e git+https://${{secrets.GIT_TOKEN}}@github.com/rsyncai/pytest-flakybot.git#egg=pytest-flakybot
-        shell: bash
       - name: Directory creation for pytest results
-        run: mkdir -p test_results
+        run: mkdir -p test_resultszzz
       - name: Run tests with pytest
         run: pytest -vv --junitxml="test_results/result.xml"
         env:
