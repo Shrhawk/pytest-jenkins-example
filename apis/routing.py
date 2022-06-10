@@ -10,3 +10,5 @@ def setup_api_routing():
     """
     current_app.url_map.strict_slashes = False  # allow trailing slash to urls/routes
     setup_v1_routes()
+
+# ...
