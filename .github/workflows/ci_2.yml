@@ -1,4 +1,4 @@
-name: 'Run Python Tests'
+name: 'Github Action Workflow Test'
 on:
   push:
     branches:
