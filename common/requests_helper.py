@@ -90,3 +90,4 @@ def make_request(method='get', api_url='', api_key='', data={}, retries=0):
         if current_app.debug:
             print(exception_occurred)
         return {'status_code': 500, 'data': INTERNAL_SERVER_ERROR_MESSAGE}
+# second commit on pr 52
