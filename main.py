@@ -3,7 +3,7 @@ import os
 
 def print_variable():
     user_email = os.getenv("USER_EMAIL")
-    if user_email = "test@gmail.com":
+    if user_email == "test@gmail.com":
         print("hello world")
     user_password = os.getenv("USER_PASSWORD")
     login_url = os.getenv("LOGIN_URL")
