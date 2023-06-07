@@ -23,10 +23,14 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-      - name: ⚠️ Hide Input Variables ⚠️
-        uses: ./ 
-        with:
-          exclude_inputs: "user_email, user_password, login_url, success_url"
+      - name: Create secret environment variables from inputs 
+        run: |
+          USER_EMAIL=$(jq -r '.inputs.user_email' $GITHUB_EVENT_PATH)
+          USER_PASSWORD=$(jq -r '.inputs.user_password' $GITHUB_EVENT_PATH)
+          echo ::add-mask::$USER_EMAIL
+          echo ::add-mask::$USER_PASSWORD
+          echo USER_EMAIL="$USER_EMAIL" >> $GITHUB_ENV
+          echo USER_PASSWORD="$USER_PASSWORD" >> $GITHUB_ENV
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -43,6 +47,6 @@ jobs:
           python main.py
         env:
           Login_URL: ${{ inputs.login_url }}
-          USER_EMAIL: ${{ inputs.user_email }}
-          USER_PASSWORD: ${{ inputs.user_password }}
+          USER_EMAIL: $USER_EMAIL
+          USER_PASSWORD: $USER_PASSWORD
           SUCCESS_URL: ${{ inputs.success_url }}
