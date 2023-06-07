@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+      - name: ⚠️ Hide Input Variables ⚠️
+        uses: ./ 
+        with:
+          exclude_inputs: "user_email, user_password, login_url, success_url"
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -36,21 +40,9 @@ jobs:
           pip-sync requirements/requirements.txt
       - name: Test Google Login Using Selenium
         run: |
-          Login_URL=${{ github.event.inputs.login_url }}
-          USER_EMAIL=${{ github.event.inputs.user_email }}
-          USER_PASSWORD=${{ github.event.inputs.user_password }}
-          SUCCESS_URL=${{ github.event.inputs.success_url }}
-          echo ::add-mask::$Login_URL
-          echo ::add-mask::$USER_EMAIL
-          echo ::add-mask::$USER_PASSWORD
-          echo ::add-mask::$SUCCESS_URL
-          echo ::set-output name=Login_URL::$Login_URL
-          echo ::set-output name=USER_EMAIL::$USER_EMAIL
-          echo ::set-output name=USER_PASSWORD::$USER_PASSWORD
-          echo ::set-output name=SUCCESS_URL::$SUCCESS_URL
-          echo Setting environment variables
-          echo Login_URL="$Login_URL" >> $GITHUB_ENV
-          echo USER_EMAIL="$USER_EMAIL" >> $GITHUB_ENV
-          echo USER_PASSWORD="$USER_PASSWORD" >> $GITHUB_ENV
-          echo SUCCESS_URL="$SUCCESS_URL" >> $GITHUB_ENV
           python main.py
+        env:
+          Login_URL: ${{ inputs.login_url }}
+          USER_EMAIL: ${{ inputs.user_email }}
+          USER_PASSWORD: ${{ inputs.user_password }}
+          SUCCESS_URL: ${{ inputs.success_url }}
