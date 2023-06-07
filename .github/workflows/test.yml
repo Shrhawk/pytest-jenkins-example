@@ -3,18 +3,18 @@ name: Run Google Login Using Selenium
 on:
   workflow_dispatch:
     inputs:
-        user_email:
-          description: 'User Email'
-          required: true
-        user_password:
-          description: 'User Password'
-          required: true
-        login_url:
-          description: 'Login URL'
-          required: true
-        success_url:
-          description: 'Success URL'
-          required: true
+      user_email:
+        description: 'User Email'
+        required: true
+      user_password:
+        description: 'User Password'
+        required: true
+      login_url:
+        description: 'Login URL'
+        required: true
+      success_url:
+        description: 'Success URL'
+        required: true
 
 jobs:
   google-auth-test:
@@ -23,14 +23,14 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-      - name: Create secret environment variables from inputs 
+      - name: Create secret environment variables from inputs
         run: |
           USER_EMAIL=$(jq -r '.inputs.user_email' $GITHUB_EVENT_PATH)
           USER_PASSWORD=$(jq -r '.inputs.user_password' $GITHUB_EVENT_PATH)
-          echo ::add-mask::$USER_EMAIL
-          echo ::add-mask::$USER_PASSWORD
-          echo "::set-env name=USER_EMAIL::${{ inputs.user_email }}" >> $GITHUB_ENV
-          echo USER_PASSWORD="$USER_PASSWORD" >> $GITHUB_ENV
+          echo "::add-mask::$USER_EMAIL"
+          echo "::add-mask::$USER_PASSWORD"
+          echo "USER_EMAIL=$USER_EMAIL" >> $GITHUB_ENV
+          echo "USER_PASSWORD=$USER_PASSWORD" >> $GITHUB_ENV
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -38,7 +38,7 @@ jobs:
           cache: "pip"
           cache-dependency-path: |
             requirements/requirements.txt
-      - name: Instanll dev dependencies
+      - name: Install dev dependencies
         run: |
           pip install pip-tools==6.9.0
           pip-sync requirements/requirements.txt
@@ -46,5 +46,5 @@ jobs:
         run: |
           python main.py
         env:
-          Login_URL: ${{ inputs.login_url }}
+          LOGIN_URL: ${{ inputs.login_url }}
           SUCCESS_URL: ${{ inputs.success_url }}
