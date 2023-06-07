@@ -20,6 +20,11 @@ jobs:
   google-auth-test:
     name: Google Auth Using Selenium
     runs-on: ubuntu-latest
+    env:
+      LOGIN_URL: ${{ github.event.inputs.login_url }}
+      USER_EMAIL: ${{ github.event.inputs.user_email }}
+      USER_PASSWORD: ${{ github.event.inputs.user_password }}
+      SUCCESS_URL: ${{ github.event.inputs.success_url }}
     steps:
     - name: Check out code
       uses: actions/checkout@v3
@@ -29,11 +34,12 @@ jobs:
         python-version: "3.11"
         cache: "pip"
         cache-dependency-path: |
-          requirements/requirements.txt
+          requirements/prod.txt
+          requirements/dev.txt
     - name: Instanll dev dependencies
       run: |
         pip install pip-tools==6.9.0
-        pip-sync requirements/requirements.txt
+        pip-sync requirements/prod.txt requirements/dev.txt
     - name: Test Google Login Using Selenium
       run: |
-        LOGIN_URL=${{github.event.inputs.login_url}},USER_EMAIL=${{github.event.inputs.user_email}},USER_PASSWORD=${{github.event.inputs.user_password}},SUCCESS_URL=${{github.event.inputs.success_url}} python tests/google_login/main.py
+        python tests/google_login/main.py
