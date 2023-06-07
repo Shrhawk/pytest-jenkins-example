@@ -5,30 +5,21 @@ on:
     inputs:
         user_email:
           description: 'User Email'
-          type: environment
           required: true
         user_password:
           description: 'User Password'
-          type: environment
           required: true
         login_url:
           description: 'Login URL'
-          type: environment
           required: true
         success_url:
           description: 'Success URL'
-          type: environment
           required: true
 
 jobs:
   google-auth-test:
     name: Google Auth Using Selenium
     runs-on: ubuntu-latest
-    env:
-      LOGIN_URL: ${{ github.event.inputs.login_url }}
-      USER_EMAIL: ${{ github.event.inputs.user_email }}
-      USER_PASSWORD: ${{ github.event.inputs.user_password }}
-      SUCCESS_URL: ${{ github.event.inputs.success_url }}
     steps:
     - name: Check out code
       uses: actions/checkout@v3
@@ -45,4 +36,8 @@ jobs:
         pip-sync requirements/requirements.txt
     - name: Test Google Login Using Selenium
       run: |
+        LOGIN_URL=::add-mask::${{ github.event.inputs.login_url }}
+        USER_EMAIL=::add-mask::${{ github.event.inputs.user_email }}
+        USER_PASSWORD=::add-mask::${{ github.event.inputs.user_password }}
+        SUCCESS_URL=::add-mask::${{ github.event.inputs.success_url }}
         python main.py
