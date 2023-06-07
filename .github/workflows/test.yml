@@ -5,15 +5,19 @@ on:
     inputs:
         user_email:
           description: 'User Email'
+          type: environment
           required: true
         user_password:
           description: 'User Password'
+          type: environment
           required: true
         login_url:
           description: 'Login URL'
+          type: environment
           required: true
         success_url:
           description: 'Success URL'
+          type: environment
           required: true
 
 jobs:
