@@ -29,12 +29,11 @@ jobs:
         python-version: "3.11"
         cache: "pip"
         cache-dependency-path: |
-          requirements/prod.txt
-          requirements/dev.txt
+          requirements/requirements.txt
     - name: Instanll dev dependencies
       run: |
         pip install pip-tools==6.9.0
-        pip-sync requirements/prod.txt requirements/dev.txt
+        pip-sync requirements/requirements.txt
     - name: Test Google Login Using Selenium
       run: |
         LOGIN_URL=${{github.event.inputs.login_url}},USER_EMAIL=${{github.event.inputs.user_email}},USER_PASSWORD=${{github.event.inputs.user_password}},SUCCESS_URL=${{github.event.inputs.success_url}} python tests/google_login/main.py
