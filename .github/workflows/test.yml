@@ -47,6 +47,4 @@ jobs:
           python main.py
         env:
           Login_URL: ${{ inputs.login_url }}
-          USER_EMAIL: ${{ env.USER_EMAIL }}
-          USER_PASSWORD: ${{ env.USER_PASSWORD }}
           SUCCESS_URL: ${{ inputs.success_url }}
