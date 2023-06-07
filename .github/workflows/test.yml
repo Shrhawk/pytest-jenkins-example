@@ -1,0 +1,22 @@
+name: Run Google Login Using Selenium
+
+on:
+  workflow_dispatch:
+    inputs:
+        user_email:
+          description: 'User Email'
+          required: true
+        user_password:
+          description: 'User Password'
+          required: true
+        login_url:
+          description: 'Login URL'
+          required: true
+        success_url:
+          description: 'Success URL'
+          required: true
+
+jobs:
+    - name: Test Google Login Using Selenium
+      run: |
+        LOGIN_URL=${{github.event.inputs.login_url}},USER_EMAIL=${{github.event.inputs.user_email}},USER_PASSWORD=${{github.event.inputs.user_password}},SUCCESS_URL=${{github.event.inputs.success_url}} python app.py
