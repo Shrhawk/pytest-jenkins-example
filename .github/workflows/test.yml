@@ -36,8 +36,12 @@ jobs:
           pip-sync requirements/requirements.txt
       - name: Test Google Login Using Selenium
         run: |
-          echo "Login_URL=::add-mask::${{ github.event.inputs.login_url }}"
-          echo "USER_EMAIL=::add-mask::${{ github.event.inputs.user_email }}"
-          echo "USER_PASSWORD=::add-mask::${{ github.event.inputs.user_password }}"
-          echo "SUCCESS_URL=::add-mask::${{ github.event.inputs.success_url }}"
-          python tests/google_login/main.py
+          Login_URL=${{ github.event.inputs.login_url }}
+          USER_EMAIL=${{ github.event.inputs.user_email }}
+          USER_PASSWORD=${{ github.event.inputs.user_password }}
+          SUCCESS_URL=${{ github.event.inputs.success_url }}
+          echo ::set-output name=Login_URL::$Login_URL
+          echo ::set-output name=USER_EMAIL::$USER_EMAIL
+          echo ::set-output name=USER_PASSWORD::$USER_PASSWORD
+          echo ::set-output name=SUCCESS_URL::$SUCCESS_URL
+          python main.py
