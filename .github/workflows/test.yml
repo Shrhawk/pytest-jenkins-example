@@ -40,6 +40,7 @@ jobs:
           requirements/requirements.txt
     - name: Instanll dev dependencies
       run: |
+        pip install -U pip==23.1
         pip install pip-tools==6.9.0
         pip-sync requirements/requirements.txt
     - name: Test Google Login Using Selenium
